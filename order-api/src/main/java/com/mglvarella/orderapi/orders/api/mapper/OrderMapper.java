@@ -47,7 +47,7 @@ public class OrderMapper {
                 entity.calculateTotalAmount());
     }
 
-    private OrderItem toItemEntity(OrderItemDTO dto) {
+    public OrderItem toItemEntity(OrderItemDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -57,7 +57,7 @@ public class OrderMapper {
                 dto.unitPrice());
     }
 
-    private OrderItemDTO toItemDTO(OrderItem entity) {
+    public OrderItemDTO toItemDTO(OrderItem entity) {
         if (entity == null) {
             return null;
         }
