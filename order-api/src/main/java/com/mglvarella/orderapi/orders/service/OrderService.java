@@ -27,6 +27,13 @@ public class OrderService {
         return orderMapper.toResponse(savedOrder);
     }
 
+    public OrderResponseDTO getOrderById(Long orderId) {
+        Order order = this.orderRepository.findById(orderId)
+                .orElseThrow(()-> new RuntimeException());
+
+        return orderMapper.toResponse(order);
+    }
+
     @Transactional
     public OrderResponseDTO addOrderItem(Long orderId, OrderItemDTO orderItemDTO){
         Order order = orderRepository.findById(orderId)

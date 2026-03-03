@@ -21,7 +21,12 @@ public class OrderController {
         return ResponseEntity.ok(this.orderService.createOrder(data));
     }
 
-    @PutMapping("/{id}")
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderResponseDTO> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(this.orderService.getOrderById(id));
+    }
+
+    @PostMapping("/{id}/items")
     public ResponseEntity<OrderResponseDTO> addItem(@PathVariable Long id, @RequestBody OrderItemDTO data) {
         return ResponseEntity.ok(this.orderService.addOrderItem(id, data));
     }
