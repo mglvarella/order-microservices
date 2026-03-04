@@ -26,6 +26,12 @@ public class OrderController {
         return ResponseEntity.ok(this.orderService.getOrderById(id));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
+        this.orderService.deleteItemById(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/{id}/items")
     public ResponseEntity<OrderResponseDTO> addItem(@PathVariable Long id, @RequestBody OrderItemDTO data) {
         return ResponseEntity.ok(this.orderService.addOrderItem(id, data));

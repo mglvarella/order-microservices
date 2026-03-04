@@ -35,6 +35,11 @@ public class OrderService {
         return orderMapper.toResponse(order);
     }
 
+    public void deleteItemById(Long orderId) {
+        Order order = this.orderRepository.findById(orderId)
+                .orElseThrow(()-> new EntityNotFoundException(("Failed to find an Order with id: " + orderId)));
+    }
+
     @Transactional
     public OrderResponseDTO addOrderItem(Long orderId, OrderItemDTO orderItemDTO){
         Order order = orderRepository.findById(orderId)
