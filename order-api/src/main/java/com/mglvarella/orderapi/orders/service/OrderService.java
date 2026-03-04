@@ -7,6 +7,7 @@ import com.mglvarella.orderapi.orders.api.mapper.OrderMapper;
 import com.mglvarella.orderapi.orders.domain.model.Order;
 import com.mglvarella.orderapi.orders.domain.model.OrderItem;
 import com.mglvarella.orderapi.orders.infrastructure.repository.OrderRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +30,7 @@ public class OrderService {
 
     public OrderResponseDTO getOrderById(Long orderId) {
         Order order = this.orderRepository.findById(orderId)
-                .orElseThrow(()-> new RuntimeException());
+                .orElseThrow(()-> new EntityNotFoundException("Failed to find an Order with id: " + orderId));
 
         return orderMapper.toResponse(order);
     }
@@ -37,7 +38,7 @@ public class OrderService {
     @Transactional
     public OrderResponseDTO addOrderItem(Long orderId, OrderItemDTO orderItemDTO){
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(()-> new RuntimeException());
+                .orElseThrow(()-> new EntityNotFoundException("Failed to find an Order with id: " + orderId));
 
         OrderItem itemToAdd = orderMapper.toItemEntity(orderItemDTO);
 
