@@ -1,4 +1,4 @@
-package com.mglvarella.gatewayapi.auth.api;
+package com.mglvarella.gatewayapi.auth.api.dto;
 
 public record TokenResponse(
         String accessToken,

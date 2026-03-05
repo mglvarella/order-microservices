@@ -1,7 +1,7 @@
 package com.mglvarella.gatewayapi.auth.service;
 
-import com.mglvarella.gatewayapi.auth.api.LoginRequest;
-import com.mglvarella.gatewayapi.auth.api.TokenResponse;
+import com.mglvarella.gatewayapi.auth.api.dto.LoginRequest;
+import com.mglvarella.gatewayapi.auth.api.dto.TokenResponse;
 import com.mglvarella.gatewayapi.auth.infrastructure.security.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
