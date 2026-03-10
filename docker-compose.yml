@@ -19,8 +19,6 @@ services:
       context: ./order-api
       dockerfile: Dockerfile
     container_name: order-api
-    ports:
-      - "8081:8080"
     networks:
       - microservices-net
 
