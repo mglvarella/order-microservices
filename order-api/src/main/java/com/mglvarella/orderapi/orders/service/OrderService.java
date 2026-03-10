@@ -38,6 +38,7 @@ public class OrderService {
     public void deleteItemById(Long orderId) {
         Order order = this.orderRepository.findById(orderId)
                 .orElseThrow(() -> new EntityNotFoundException(("Failed to find an Order with id: " + orderId)));
+        this.orderRepository.delete(order);
     }
 
     @Transactional
