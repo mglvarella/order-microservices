@@ -37,13 +37,13 @@ class AuthControllerIntegrationTest {
     }
 
     @Test
-    void login_shouldReturn403_whenCredentialsAreInvalid() throws Exception {
+    void login_shouldReturn401_whenCredentialsAreInvalid() throws Exception {
         LoginRequest request = new LoginRequest("usuario", "wrong-password");
 
         mockMvc.perform(post("/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
