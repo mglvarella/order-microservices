@@ -1,0 +1,27 @@
+services:
+
+  gateway-api:
+    build:
+      context: ./gateway-api
+      dockerfile: Dockerfile
+    container_name: gateway-api
+    ports:
+      - "8080:8080"
+    networks:
+      - microservices-net
+    depends_on:
+      - order-api
+
+  order-api:
+    build:
+      context: ./order-api
+      dockerfile: Dockerfile
+    container_name: order-api
+    ports:
+      - "8081:8080"
+    networks:
+      - microservices-net
+
+networks:
+  microservices-net:
+    driver: bridge
