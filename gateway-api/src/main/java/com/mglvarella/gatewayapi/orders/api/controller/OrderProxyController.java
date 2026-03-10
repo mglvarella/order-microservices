@@ -68,4 +68,17 @@ public class OrderProxyController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update an existing order")
+    public ResponseEntity<OrderResponseDTO> updateOrder(@PathVariable Long id, @RequestBody OrderRequestDTO body) {
+        OrderResponseDTO response = orderApiRestClient.put()
+                .uri("/orders/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(body)
+                .retrieve()
+                .body(OrderResponseDTO.class);
+
+        return ResponseEntity.ok(response);
+    }
 }

@@ -30,25 +30,44 @@ public class OrderService {
 
     public OrderResponseDTO getOrderById(Long orderId) {
         Order order = this.orderRepository.findById(orderId)
-                .orElseThrow(()-> new EntityNotFoundException("Failed to find an Order with id: " + orderId));
+                .orElseThrow(() -> new EntityNotFoundException("Failed to find an Order with id: " + orderId));
 
         return orderMapper.toResponse(order);
     }
 
     public void deleteItemById(Long orderId) {
         Order order = this.orderRepository.findById(orderId)
-                .orElseThrow(()-> new EntityNotFoundException(("Failed to find an Order with id: " + orderId)));
+                .orElseThrow(() -> new EntityNotFoundException(("Failed to find an Order with id: " + orderId)));
     }
 
     @Transactional
-    public OrderResponseDTO addOrderItem(Long orderId, OrderItemDTO orderItemDTO){
+    public OrderResponseDTO addOrderItem(Long orderId, OrderItemDTO orderItemDTO) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(()-> new EntityNotFoundException("Failed to find an Order with id: " + orderId));
+                .orElseThrow(() -> new EntityNotFoundException("Failed to find an Order with id: " + orderId));
 
         OrderItem itemToAdd = orderMapper.toItemEntity(orderItemDTO);
 
         order.addItem(itemToAdd);
 
         return orderMapper.toResponse(order);
+    }
+
+    @Transactional
+    public OrderResponseDTO updateOrder(Long orderId, OrderRequestDTO orderRequestDTO) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new EntityNotFoundException("Failed to find an Order with id: " + orderId));
+
+        order.setCustomerName(orderRequestDTO.customerName());
+        order.setCustomerEmail(orderRequestDTO.customerEmail());
+
+        order.getItems().clear();
+
+        if (orderRequestDTO.items() != null) {
+            orderRequestDTO.items().stream()
+                    .map(orderMapper::toItemEntity)
+                    .forEach(order::addItem);
+        }
+
+        return orderMapper.toResponse(orderRepository.save(order));
     }
 }
